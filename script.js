@@ -16,15 +16,13 @@ const songNameList = [ "Why Not Me", "Shot In The Dark", "In The Middle Of The N
 let isPlaying = false;
 let songPlaying = 0;
 
+const nowPlayingText = document.querySelector("#nowPlayingText");
+const recordIcon = document.querySelector("#recordIcon");
 
 function playNextSong()
 {
     if(songPlaying < playlist.length)
     {
-        const nowPlayingText = document.querySelector("#nowPlayingText");
-        const recordIcon = document.querySelector("#recordIcon");
-
-        recordIcon.style.animationIterationCount = "infinite";
         playlist[songPlaying].play();
         
         nowPlayingText.textContent = songNameList[songPlaying];
@@ -50,9 +48,12 @@ function playButtonToggle()
         playIcon.classList.remove("hide");
         playlist[songPlaying].pause();
         isPlaying = false;
+        recordIcon.style.animationIterationCount = "0";
     }
     else
     {
+
+        recordIcon.style.animationIterationCount = "infinite";
         pauseIcon.classList.remove("hide");
         playIcon.classList.add("hide");
         isPlaying = true;
