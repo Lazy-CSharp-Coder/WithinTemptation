@@ -24,6 +24,7 @@ function playNextSong()
         const nowPlayingText = document.querySelector("#nowPlayingText");
         const recordIcon = document.querySelector("#recordIcon");
 
+        no
         playlist[songPlaying].play();
         
         nowPlayingText.textContent = songNameList[songPlaying];

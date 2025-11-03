@@ -1,0 +1,102 @@
+@import "./root.css";
+@import "./animations.css";
+
+.monsterLogoMenu 
+{
+   height: 64px;
+}
+
+.closeMenuImg {
+  width: 22px;
+}
+
+.headingCloseDiv {
+  align-items: center;
+  justify-content: space-between;
+}
+
+.menuHeading {
+  align-items: center;
+  color:white;
+  font-family: var(--primaryFontFamily);
+  font-size: 18px;
+}
+
+.slideInMenuNav {
+
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px 40px;
+  background-color: black;
+  height: 100%;
+  width: 500px;
+  position: fixed;
+  top : 0;
+  right: 0;
+  z-index: 100;
+}
+
+.greaterThanIcon {
+  height: 15px;
+}
+
+.upperHalfWrapperDiv {
+  flex-direction: column;
+  gap: 50px;
+}
+
+.lowerHalfWrapperDiv {
+  flex-direction: column;
+  gap: 10px;
+}
+
+
+.socialMediaDiv{
+  padding: 20px 0px;
+  gap: 30px;
+}
+
+.socialMediaIcon {
+  width: 20px;
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+
+.socialMediaIcon:hover {
+  scale: 1.4;
+
+  
+}
+
+.buttonNavDiv {
+  align-items: center;
+  
+  gap:25px;
+  padding: 10px 0px;
+
+}
+
+.signInButton, .signUpButton {
+  background-color: black;
+  font-family: var(--primaryFontFamily);
+  font-size: 14px;
+  color:white;
+
+}
+
+.signInButton {
+  padding: 8px 16px;
+  border: 1px solid white;
+}
+
+
+
+.signInButton:hover {
+  color: black;
+  background-color: white;
+}
+
+.signUpButton {
+  border: none;
+}

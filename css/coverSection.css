@@ -1,0 +1,177 @@
+@import "./root.css";
+
+.coverSection {
+    /* position: relative; */
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    margin-top: 10em;
+    /* gap: 35px; */
+    z-index: 10;
+  
+  }
+  
+  .uppeerSectionContainerDiv {
+    
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    /* gap: 1000px; */
+  
+  }
+  
+  .releaseText {
+    color:#fdfdfd;
+   
+  }
+  
+  .coverTextWrapper {
+  
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+  
+  }
+  
+  .coverReleaseDiv {
+   gap: 10px;
+  }
+  
+  .sideWaysDiv {
+    
+    font-family: "Montserrat";
+    color: var(--textReleaseColor);
+    font-size: 18px;
+    font-style: italic;
+    gap:0;
+    
+     writing-mode: sideways-lr;
+    justify-content: flex-start;
+  }
+  
+  .albumInfoDiv {
+    
+    justify-content: center;
+    flex-direction: column;
+  
+    gap:20px;
+    
+  }
+
+  .nowPlayingDiv {
+    gap: 20px;
+    align-items: center;
+  }
+  
+.recordIcon {
+  height: 30px;
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: 0;
+  animation-timing-function: linear;
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg);}
+}
+
+  .nowPlayingText {
+    font-size: 14px;
+    color: var(--primaryTextColor);
+
+  }
+
+
+  .coverImage {
+    width:50em;
+    border: 1px solid rgba(250, 250, 250, 0.3);
+  }
+  
+  .albumTitleText {
+    font-family: var(--primaryFontFamily);
+    font-size: 48px;
+    color: transparent;
+    -webkit-text-stroke-width : 2px;
+    -webkit-text-stroke-color: var(--primaryTextColor);
+  }
+  
+  .albumArtistText {
+    font-family: var(--primaryFontFamily);
+    font-size : 28px;
+    color:var(--primaryTextColor);
+  
+    /* font-weight: bold; */
+  }
+  
+  .hoverImage {
+    display: none;
+  }
+  
+  .defaultImage {
+    display: flex;
+  }
+  
+  
+  .playButton {
+    width: 213px;
+    height: 53px;
+    color:white;
+    background-color:var(--primaryColor);
+    font-family: var(--primaryFontFamily);
+    font-size : 14px;
+    border: 2px solid var(--primaryColor);
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .playIcon, .shareIcon, .pauseIcon {
+    width : 18px;
+  }
+  
+  .shareButton:hover {
+    background-color: white;
+    color: black;
+    .hoverImage { display: flex};
+    .defaultImage { display: none;}
+  
+  }
+  
+  .shareButton {
+    font-family: var(--primaryFontFamily);
+    width: 153px;
+    height : 53px;
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .shareIconWhite {
+  
+  }
+  
+  
+  .albumButtonWrapper {
+    gap : 8px;
+    margin-top: 40px;
+  
+  }
+  
+  .streamDiv {
+    display: grid;
+    grid-template-columns: auto repeat(5, auto);
+    /* column-gap: 30px; */
+    height: fit-content;
+    align-items: center;
+    /* padding: 20px 8px; */
+    background-color: black;
+    width: fit-content;
+    border: 1px solid white;
+  
+  
+  }
