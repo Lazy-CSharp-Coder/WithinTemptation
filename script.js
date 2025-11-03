@@ -24,7 +24,7 @@ function playNextSong()
         const nowPlayingText = document.querySelector("#nowPlayingText");
         const recordIcon = document.querySelector("#recordIcon");
 
-
+        nowPlayingText.style.animationIteration = "infinite";
         playlist[songPlaying].play();
         
         nowPlayingText.textContent = songNameList[songPlaying];
@@ -34,6 +34,7 @@ function playNextSong()
     else 
     {
         songPlaying = 0;
+        nowPlayingText.style.animationIteration = "0";
         playButtonToggle();
     }
 }
