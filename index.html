@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="no">
+  <!-- head  = informasjon til nettleser -->
+  <head>
+    <title>Hjem</title>
+    <link href="Icons/code.png" rel="icon" type="image/png" />
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="stylesheet" href="styles.css" />
+    <script type="module" src="script.js"></script>
+  </head>
+  <!-- Body = Informasjon til nettsiden -->
+  <body>
+    <div class="backgroundImage"> </div>
+    <header class="flex">
+      <!-- Logo, bedriftsnavn, navigasjon, temabytter, søkefelt, SoMe -->
+      <img class="logoHeader" src="Album/gunlogo2.gif">
+      <img id="hamburgerIcon" class="hamburgerIcon" src="Icons/hamburger.png">
+    
+    </header>
+
+    <main>
+      <!-- Hovedinnhold: introduksjon, produkt, fremvisning -->
+      <nav id="slideInMenuNav" class="slideInMenuNav hide">
+        
+        <div class="flex upperHalfWrapperDiv">
+          <div class="flex headingCloseDiv">
+            <!-- <p class="menuHeading flex"> <img id="logoImg" class="logoImg" src="Icons/monstercat-logo.webp">monstercat</p> -->
+            <img class="monsterLogoMenu" src="/Icons/monstercat-logo-white.svg" alt="icon logo">
+            <img id="closeMenuImg" class="closeMenuImg" src="Icons/closemenu.png">
+            </div>
+            <ul id="hamburgerList flex" class="hamburgerList">
+              <li>MUSIC     <img class="greaterThanIcon" src="Icons/greaterthan.png" alt="greater than icon"></li>
+              <li>ARTISTS</li>
+              <li>ABOUT     <img class="greaterThanIcon" src="Icons/greaterthan.png" alt="greater than icon"></li>
+              <li>NEWS</li>
+              <li>EVENTS    <img class="greaterThanIcon" src="Icons/greaterthan.png" alt="greater than icon"></li>
+              <li>PROGRAMMING    <img class="greaterThanIcon" src="Icons/greaterthan.png" alt="greater than icon"></li>
+              <li>GOLD</li>
+              <li>PARTNERS</li>
+              <li>PRESS</li>
+              <li>PLAYER</li>
+              <li>SHOP</li>
+              <li>LOST CIVILIZATION</li>
+            </ul>
+        </div>
+        <div class="flex lowerHalfWrapperDiv">
+          <div class="socialMediaDiv flex">
+            <img class="socialMediaIcon" src="Icons/instagramwhite.png" alt="">
+            <img class="socialMediaIcon" src="Icons/tik-tokwhite.png" alt="">
+            <img class="socialMediaIcon" src="Icons/twitterwhite.png" alt="">
+            <img class="socialMediaIcon" src="Icons/facebookwhite.png" alt="">
+            <img class="socialMediaIcon" src="Icons/twitchwhite.png" alt="">
+            <img class="socialMediaIcon" src="Icons/discordwhite.png" alt="">
+            <img class="socialMediaIcon" src="Icons/monstercatplayer2.png" alt="">
+    
+    
+          </div>
+          <div class="buttonNavDiv flex">
+            <button class="signInButton">SIGN IN</button>
+            <P class="menuHeading">OR</P>
+            <button class="signUpButton">SIGN UP</button>
+    
+          </div>
+        </div>
+    </nav>
+    <nav class="socialMediaDesktopNav flex">
+      <img class="socialMediaIcon" src="Icons/instagramwhite.png" alt="">
+      <img class="socialMediaIcon" src="Icons/tik-tokwhite.png" alt="">
+      <img class="socialMediaIcon" src="Icons/twitterwhite.png" alt="">
+      <img class="socialMediaIcon" src="Icons/facebookwhite.png" alt="">
+      <img class="socialMediaIcon" src="Icons/twitchwhite.png" alt="">
+      <img class="socialMediaIcon" src="Icons/discordwhite.png" alt="">
+      <img class="socialMediaIcon" src="Icons/monstercatplayer2.png" alt="">
+     
+    </nav>
+   <section id="hjem" class="flex coverSection">
+     
+        <!-- coverSection / Main / Home -->
+      <div> 
+        <div class="flex uppperSectionContainerDiv">
+          <div class="coverTextWrapper flex">
+            <div class="flex coverReleaseDiv">
+              <div class="sideWaysDiv flex">The Unforgiving <span class="releaseText">- Released March 29, 2011</span> </div>
+              <img class="coverImage" src="Album/theunforgiving.jpeg" alt="cover image">
+            </div>
+           
+            <div class="albumInfoDiv flex ">
+              <p class="albumTitleText">THE UNFORGIVING</p>
+              <P class="albumArtistText">WITHIN TEMPTATION</P>
+              <div class="nowPlayingDiv flex"> <img id="recordIcon" class="recordIcon" src="Icons/record.png" alt="">  <p id="nowPlayingText" class="nowPlayingText">-</p></div>
+            <div class="flex albumButtonWrapper">
+              <button id="playButton" class="flex playButton"><img id="playIcon" class="playIcon" src="/Icons/playwhite.png" > <img id="pauseIcon" class="pauseIcon hide" src="/Icons/pause.png" alt="">PLAY NOW</button>
+              <button id="shareButton flex" class="flex shareButton"><img class="shareIcon defaultImage" src="/Icons/sharewhite.png" alt="shareIcon"> <img class="hoverImage shareIcon" src="/Icons/shareblack.png">SHARE</button>
+            </div>
+          </div>
+         </div>
+      </div>
+      <div> <h1>STREAM IT YOUR WAY</h1></div>
+      <div class="streamDiv">
+        <img class="playerIcon" src="Icons/player.png" alt="">
+        <img class="musicIcons" src="Icons/bandcampmusic.png" alt="">
+        <img class="musicIcons" src="Icons/soundcloudmusic.png" alt="">
+        <img class="musicIcons" src="Icons/applemusic.png" alt="">
+        <img class="musicIcons" src="Icons/youtubemusic.png" alt="">
+        <img class="musicIcons" src="Icons/spotifymusic.png" alt="">
+
+
+      </div>
+      </section>
+      <section class="trackSection">
+        <h1>TRACK LIST</h1>
+        <div class="trackListDiv">
+          <ol class="tracks">
+            <li>1 <img class="playIcon" src="Icons/playwhite.png" alt=""> <p>The Small Things</p><p>3.35</p><img class="shareIcon" src="Icons/sharewhite.png" alt=""></li>
+          </ol>
+
+        </div>
+      </section>
+     
+    </main>
+
+    <footer>
+      <img
+        class="kodeloftlogo"
+        src="Icons/kodeloftalpha.png"
+        alt="fant ikke logo"
+      />
+      <div class="kreditasjonfooter">
+        <p class="footertext">Web-side utviklet av Harald Nydal</p>
+        <p class="footertext">Kodeloftet 1 - Gruppe 15</p>
+      </div>
+      <div class="emailandgithub">
+        <a href="mailto:haraldn.kodeloftet@gmail.com" target="_blank">
+          <img src="Icons/email.png" alt="fant ikke icon" />
+        </a>
+        <a href="https://github.com/Lazy-CSharp-Coder" target="_blank">
+          <img src="Icons/github.png" alt="fant ikke icon" />
+        </a>
+      </div>
+
+      <!-- Logo, navigasjon, kreditasjon, betingelser (TOS - Terms of Service), søkefelt, SoME-->
+    </footer>
+  </body>
+</html>

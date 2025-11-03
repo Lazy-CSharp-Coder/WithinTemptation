@@ -1,0 +1,143 @@
+@import "./css/navSideMenu.css";
+@import "./css/trackSection.css";
+@import "./css/coverSection.css";
+
+
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+
+@font-face {
+  font-family: 'Monument Extended'; /* Choose a name for your font */
+  src: url('fonts/MonumentExtended-Regular.otf') format('opentype'); /* Path to your font file */
+  font-weight: normal; /* Optional: Specify font weight */
+  font-style: normal; /* Optional: Specify font style */
+}
+/*  Bruk klasser (class) i CSS istedet for id */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+/* BODY */
+
+:root {
+  --primaryFontFamily : "Monument Extended";
+   --primaryColor : #07472C;      
+   /* --primaryColor: #881B30; */
+   --textReleaseColor :#B81B30;
+   --primaryTextColor: rgb(221, 221, 221);
+
+
+}
+body {
+  margin: 0;
+  position:relative;
+
+  /* position: relative; */
+  background-color: black;
+  font-family: var(--primaryFontFamily);
+
+  color: white;
+
+}
+
+h1 {
+  font-size: 45px;
+  margin-top: 120px;
+  margin-bottom: 40px;
+}
+
+/* HEADER */
+
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 6em;
+  background-color:transparent;
+  
+
+  position: sticky;
+  top: 0;
+}
+
+.logoHeader {
+  height:40px;
+}
+
+.hamburgerIcon {
+  width: 32px;
+}
+
+ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  gap: 16px;
+  list-style-type: none;
+}
+
+li {
+  font-family: var(--primaryFontFamily);
+  font-size:18px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  color:white;
+}
+
+.hide {
+  display: none;
+}
+
+.flex {
+  display: flex;
+}
+
+.backgroundImage {
+  width:100%;
+  height: 100%;
+  position: absolute;
+  background-image: url("Album/background3.jpg");
+  background-size:cover;
+  background-position-y: -200px;
+  position: fixed;
+  background-repeat: no-repeat;
+  filter:blur(5px) brightness(38%);
+  z-index: -1;
+
+}
+
+/* MAIN */
+
+main {
+  display: flex;
+  flex-direction: column;
+  width: 75%;
+
+}
+
+section {
+  height: 100vh;
+}
+
+.socialMediaDesktopNav {
+  flex-direction: column;
+  position: fixed;
+  top : 150px;
+  right: 6.3em;
+  gap: 25px;
+}
+
+/* FOOTER */
+
+footer {
+
+
+}
+
+
+
+
