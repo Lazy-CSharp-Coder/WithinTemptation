@@ -24,7 +24,7 @@ function playNextSong()
         const nowPlayingText = document.querySelector("#nowPlayingText");
         const recordIcon = document.querySelector("#recordIcon");
 
-        nowPlayingText.style.animationIteration = "infinite";
+        recordIcon.style.animationIterationCount = "infinite";
         playlist[songPlaying].play();
         
         nowPlayingText.textContent = songNameList[songPlaying];
