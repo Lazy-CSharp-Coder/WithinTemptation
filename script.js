@@ -1,5 +1,5 @@
 const playlist = [ new Audio("Album/tracks/01 - Why Not Me.mp3"),    
-                   new Audio("Album/tracks/02 - Shot In The Dark.mp3"),
+                //    new Audio("Album/tracks/02 - Shot In The Dark.mp3"),
                 //    new Audio("Album/tracks/03 - In The Middle Of The Night.mp3"),    
                 //    new Audio("Album/tracks/04 - Faster.mp3"),
                 //    new Audio("Album/tracks/05 - Fire And Ice.mp3"),    
