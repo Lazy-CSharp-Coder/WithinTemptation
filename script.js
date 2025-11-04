@@ -68,7 +68,7 @@ playButton.addEventListener("click", playButtonToggle);
 let isHamburgerVisible = false;
 
 
-// function addTracksToList() 
+function addTracksToList() 
 {
     const tracks = document.querySelector("#tracks");
     console.log(tracks);
@@ -81,8 +81,9 @@ let isHamburgerVisible = false;
         const songTitle = document.createElement("p");
         const songLength = document.createElement("p");
 
-        songNumber.textContent = i;
+        songNumber.textContent = i+1;
         playIcon.src = playIconFileName;
+        playIcon.classList.add("playIcon");
         songTitle.textContent = songNameList[i];
         songLength.textContent = playlist[i].duration;
 
@@ -95,7 +96,7 @@ let isHamburgerVisible = false;
     }
 }
 
-// addTracksToList();
+addTracksToList();
 
 
 function hamburgerToggle()
