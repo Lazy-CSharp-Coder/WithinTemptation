@@ -34,10 +34,21 @@
     align-items: center;
    
   }
-  
+
+  li {
+    display: grid;
+    grid-column: 1 / -1; /* Make the <li> span all columns of the parent grid */
+    grid-template-columns: subgrid; /* Inherit the column tracks from the parent */
+}
+
+li > * { /* Target the children of the <li> */
+    /* You can then place these children within the subgrid columns */
+    grid-column: 1; /* Example: place the first child in the first subgrid column */
+    /* ... and so on for other children */
+}
   .tracks {
     display: grid;
-    
-    grid-template-columns: 1fr 1fr 600fr 1fr;
+    width:100%;
+    grid-template-columns: 100px 600px 100px 100px;
     column-gap: 20px;
   }
