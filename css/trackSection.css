@@ -39,4 +39,5 @@
     display: grid;
     width:max-content;
     grid-template-columns: repeat(5, auto);
+    column-gap: 20px;
   }
