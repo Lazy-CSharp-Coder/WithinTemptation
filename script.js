@@ -18,6 +18,7 @@ let songPlaying = 0;
 
 const nowPlayingText = document.querySelector("#nowPlayingText");
 const recordIcon = document.querySelector("#recordIcon");
+const playIconFileName = "/Icons/playwhite.png";
 
 function playNextSong()
 {
@@ -65,6 +66,38 @@ const playButton = document.querySelector("#playButton");
 playButton.addEventListener("click", playButtonToggle);
 
 let isHamburgerVisible = false;
+
+const trackList = document.querySelector("#tracks");
+
+
+function addTracksToList() 
+{
+    const tracks = document.querySelector("#tracks");
+    
+    for(let i = 0; i < playlist.length; ++i)
+    {
+        const newListItem = document.createElement("li");
+        const songNumber = document.createElement("p");
+        const playIcon = document.createElement("img");
+        const songTitle = document.createElement("p");
+        const songLength = document.createElement("p");
+
+        songNumber.textContent = i;
+        playIcon.src = playIconFileName;
+        songTitle.textContent = songNameList[i];
+        songLength.textContent = playlist[i].duration;
+
+        newListItem.appendChild(songNumber);
+        newListItem.appendChild(playIcon);
+        newListItem.appendChild(songTitle);
+        newListItem.appendChild(songLength);
+
+        trackList.appendChild(newListItem);
+    }
+}
+
+addTracksToList();
+
 
 function hamburgerToggle()
 {
