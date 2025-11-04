@@ -82,7 +82,7 @@ ul {
 li {
   font-family: var(--primaryFontFamily);
   font-size:18px;
-  display: flex;
+  /* display: flex; */
   align-items: center;
   gap: 5px;
   color:white;
