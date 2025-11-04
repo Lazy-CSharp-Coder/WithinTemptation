@@ -75,24 +75,32 @@ function addTracksToList()
     
     for(let i = 0; i < playlist.length; ++i)
     {
-        const newListItem = document.createElement("li");
-        const songNumber = document.createElement("p");
-        const playIcon = document.createElement("img");
-        const songTitle = document.createElement("p");
-        const songLength = document.createElement("p");
+        playlist[i].load();
 
-        songNumber.textContent = i+1;
-        playIcon.src = playIconFileName;
-        playIcon.classList.add("playIcon");
-        songTitle.textContent = songNameList[i];
-        songLength.textContent = playlist[i].duration;
+        playlist[i].addEventListener("loadmetadata", function() 
+        {
+            const newListItem = document.createElement("li");
+            const songNumber = document.createElement("p");
+            const playIcon = document.createElement("img");
+            const songTitle = document.createElement("p");
+            const songLength = document.createElement("p");
+       
+            songNumber.textContent = i+1;
+            playIcon.src = playIconFileName;
+            playIcon.classList.add("playIcon");
+            songTitle.textContent = songNameList[i];
+            console.log(playlist[i].duration);
+            songLength.textContent = playlist[i].duration;
+    
+            newListItem.appendChild(songNumber);
+            newListItem.appendChild(playIcon);
+            newListItem.appendChild(songTitle);
+            newListItem.appendChild(songLength);
+    
+            tracks.appendChild(newListItem);
 
-        newListItem.appendChild(songNumber);
-        newListItem.appendChild(playIcon);
-        newListItem.appendChild(songTitle);
-        newListItem.appendChild(songLength);
-
-        tracks.appendChild(newListItem);
+        });
+       
     }
 }
 
