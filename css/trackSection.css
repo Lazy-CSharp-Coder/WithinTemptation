@@ -38,7 +38,7 @@
   li {
     display: grid;
     /* grid-column: 1 / -1; Make the <li> span all columns of the parent grid */
-    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    grid-template-columns: 20px 20px 4000px 20px 20px;
 }
 
 
