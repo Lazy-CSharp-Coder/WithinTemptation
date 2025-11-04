@@ -31,8 +31,8 @@
     100% { transform : translateX(500px);}
   }
   
-  @keyframes slideInBottm {
-    0% { transform: translateY( 2500);}
+  @keyframes slideInBottom {
+    0% { transform: translateY(2500);}
     100% { transform: translateY(0);}
   }
   
