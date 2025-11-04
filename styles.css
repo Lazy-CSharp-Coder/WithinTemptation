@@ -119,10 +119,6 @@ main {
 
 }
 
-section {
-  height: 100vh;
-}
-
 .socialMediaDesktopNav {
   flex-direction: column;
   position: fixed;
@@ -135,6 +131,7 @@ section {
 
 footer {
 
+  height: 200px;
 
 }
 
