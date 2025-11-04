@@ -77,7 +77,7 @@ function addTracksToList()
     {
         playlist[i].load();
 
-        playlist[i].addEventListener("loadmetadata", function() 
+        playlist[i].addEventListener("loadedmetadata", function() 
         {
             const newListItem = document.createElement("li");
             const songNumber = document.createElement("p");
