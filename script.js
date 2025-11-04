@@ -67,6 +67,15 @@ playButton.addEventListener("click", playButtonToggle);
 
 let isHamburgerVisible = false;
 
+function getTrackTime(timeInSeconds)
+{
+    const minutes = Math.trunc(timeInSeconds/60);
+    console.log(minutes);
+    const seconds = timeInSeconds - (minutes * 60);
+    console.log(seconds);
+
+}
+
 
 function addTracksToList() 
 {
@@ -84,7 +93,7 @@ function addTracksToList()
             const playIcon = document.createElement("img");
             const songTitle = document.createElement("p");
             const songLength = document.createElement("p");
-       
+            getTrackTime();
             songNumber.textContent = i+1;
             playIcon.src = playIconFileName;
             playIcon.classList.add("playIcon");
