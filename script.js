@@ -110,6 +110,7 @@ function addTracksToList()
             newListItem.appendChild(songLength);
     
             tracks.appendChild(newListItem);
+            newListItem.classList.add("slideInRight");
 
         });
        
