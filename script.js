@@ -67,12 +67,11 @@ playButton.addEventListener("click", playButtonToggle);
 
 let isHamburgerVisible = false;
 
-const trackList = document.querySelector("#tracks");
 
-
-function addTracksToList() 
+// function addTracksToList() 
 {
     const tracks = document.querySelector("#tracks");
+    console.log(tracks);
     
     for(let i = 0; i < playlist.length; ++i)
     {
@@ -92,11 +91,11 @@ function addTracksToList()
         newListItem.appendChild(songTitle);
         newListItem.appendChild(songLength);
 
-        trackList.appendChild(newListItem);
+        tracks.appendChild(newListItem);
     }
 }
 
-addTracksToList();
+// addTracksToList();
 
 
 function hamburgerToggle()
