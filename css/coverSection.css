@@ -64,6 +64,7 @@
     align-items: center;
     margin-left: 5px;
     margin-top: 5px;
+   
   }
   
 .recordIcon {
@@ -81,7 +82,7 @@
 
   .nowPlayingText {
     font-size: 14px;
-    color: var(--primaryColor);
+    color:  #9CCBC1;
 
   }
 
