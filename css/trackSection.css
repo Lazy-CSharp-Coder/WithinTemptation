@@ -47,7 +47,7 @@ li > * { /* Target the children of the <li> */
     /* ... and so on for other children */
 }
   .tracks {
-  
+    display: flex;
     width:100%;
 
     column-gap: 20px;
