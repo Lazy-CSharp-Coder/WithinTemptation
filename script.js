@@ -122,16 +122,17 @@ function addTracksToList()
 
 window.addEventListener("scroll", loadAlbumTracksWithAnim);
 
-let prevScrollPos = window.scrollY;
-const limitScrollYPos = 600;
+let listIsLoaded = false;
+const limitScrollYPos = 700;
 
 function loadAlbumTracksWithAnim()
 {
-    currentScrollPos = widow.scrollY;
+    const currentScrollPos = window.scrollY;
 
-    if(currentScrollPos > limitScrollYPos)
+    if(currentScrollPos > limitScrollYPos && !listIsLoaded)
     {
         addTracksToList();
+        listIsLoaded = true;
     }
     
 }
