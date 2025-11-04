@@ -38,7 +38,7 @@
   li {
     display: grid;
     grid-column: 1 / -1; /* Make the <li> span all columns of the parent grid */
-    grid-template-columns: subgrid; /* Inherit the column tracks from the parent */
+    grid-template-columns: 100px 500px 100px 100px;
 }
 
 li > * { /* Target the children of the <li> */
@@ -47,8 +47,8 @@ li > * { /* Target the children of the <li> */
     /* ... and so on for other children */
 }
   .tracks {
-    display: grid;
+  
     width:100%;
-    grid-template-columns: 100px 600px 100px 100px;
+
     column-gap: 20px;
   }
