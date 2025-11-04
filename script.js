@@ -75,7 +75,7 @@ function getTrackTime(timeInSeconds)
     if(seconds.length == 1) seconds = "0" + seconds;
     console.log(seconds);
 
-    return `${minutes}:${seconds}`;
+    return `${minutes} : ${seconds}`;
 
 }
 
