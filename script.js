@@ -69,10 +69,13 @@ let isHamburgerVisible = false;
 
 function getTrackTime(timeInSeconds)
 {
-    const minutes = Math.trunc(timeInSeconds/60);
+    const minutes = Math.floor(timeInSeconds/60);
     console.log(minutes);
-    const seconds = timeInSeconds - (minutes * 60);
+    const seconds = Math.floor(timeInSeconds - (minutes * 60));
+    if(seconds.length == 1) seconds = "0" + seconds;
     console.log(seconds);
+
+    return `${minutes}:${seconds}`;
 
 }
 
@@ -93,13 +96,13 @@ function addTracksToList()
             const playIcon = document.createElement("img");
             const songTitle = document.createElement("p");
             const songLength = document.createElement("p");
-            getTrackTime();
+           
             songNumber.textContent = i+1;
             playIcon.src = playIconFileName;
             playIcon.classList.add("playIcon");
             songTitle.textContent = songNameList[i];
             console.log(playlist[i].duration);
-            songLength.textContent = playlist[i].duration;
+            songLength.textContent = getTrackTime(playlist[i].duration);
     
             newListItem.appendChild(songNumber);
             newListItem.appendChild(playIcon);
