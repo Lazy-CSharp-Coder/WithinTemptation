@@ -37,7 +37,7 @@
   
   .tracks {
     display: grid;
-    width:max-content;
+    width:100%;
     grid-template-columns: repeat(5, auto);
     column-gap: 20px;
   }
