@@ -117,7 +117,31 @@ function addTracksToList()
     }
 }
 
-addTracksToList();
+
+// sett opp at sporene skal animeres inn når man når ett visst sted på skjermen
+
+window.addEventListener("scroll", loadAlbumTracksWithAnim);
+
+let prevScrollPos = window.scrollY;
+const limitScrollYPos = 600;
+
+function loadAlbumTracksWithAnim()
+{
+    currentScrollPos = widow.scrollY;
+
+    if(currentScrollPos > limitScrollYPos)
+    {
+        addTracksToList();
+    }
+    
+}
+
+
+
+
+
+// hamburger meny som kommer inn fra siden
+
 
 
 function hamburgerToggle()
