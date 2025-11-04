@@ -14,8 +14,8 @@
   
   }
   
-.slideInBottomAnim {
-  animation-name: slideInBottom;
+.slideInTopAnim {
+  animation-name: slideInBTop
   animation-duration: 1s;
   animation-timing-function: ease-in-out;
   animation-fill-mode: forwards;
