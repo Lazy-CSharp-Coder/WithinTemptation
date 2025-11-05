@@ -100,6 +100,17 @@ function addTracksToList()
             songNumber.textContent = i+1;
             playIcon.src = playIconFileName;
             playIcon.classList.add("playIcon");
+            
+            // legg inn eventlistener for play icon for hver track
+
+            playIcon.addEventListener("click", function() 
+            {
+
+                playlist[i].play();
+                console.log("playing track : " + i+1)
+            });
+    
+
             songTitle.textContent = songNameList[i];
             console.log(playlist[i].duration);
             songLength.textContent = getTrackTime(playlist[i].duration);
