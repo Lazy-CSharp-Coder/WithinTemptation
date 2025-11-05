@@ -107,6 +107,7 @@ function addTracksToList()
 
             playIcon.classList.add("playIcon");
             pauseIcon.classList.add("hide");
+            pauseIcon.classList.add("playIcon");
             
             // legg inn eventlistener for play icon for hver track
 
@@ -117,6 +118,29 @@ function addTracksToList()
                     isPlayingTrack = i+1;
                     playIcon.classList.add("hide");
                     pauseIcon.classList.remove("hide");
+                    playlist[i].addEventListener("ended", function()
+                    {
+                        pauseIcon.classList.add("hide");
+                        playIcon.classList.remove("hide");
+                        isPlayingTrack = 0;
+
+                    });
+                }
+                else
+                {
+                    playlist[isPlayingTrack].pause();
+                    playlist[isPlayingTrack].currentTime = 0;
+                    isPlayingTrack = i;
+                    playIcon.classList.add("hide");
+                    pauseIcon.classList.remove("hide");
+                    playlist[i].addEventListener("ended", function()
+                    {
+                        pauseIcon.classList.add("hide");
+                        playIcon.classList.remove("hide");
+                        isPlayingTrack = 0;
+
+                    });
+              
                 }
                 playlist[i].play();
 
@@ -130,6 +154,7 @@ function addTracksToList()
     
             newListItem.appendChild(songNumber);
             newListItem.appendChild(playIcon);
+            newListItem.appendChild(pauseIcon);
             newListItem.appendChild(songTitle);
             newListItem.appendChild(songLength);
     
