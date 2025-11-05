@@ -1,4 +1,5 @@
-const playlist = [ new Audio("Album/tracks/01 - Why Not Me.mp3"),    
+const playlist = [ new Audio("Album/tracks/01 - Why Not Me.mp3"),  
+                   new Audio("Album/tracks/01 - Why Not Me.mp3"),    
                 //    new Audio("MP3/02 - Shot In The Dark.mp3"),
                 //    new Audio("Album/tracks/03 - In The Middle Of The Night.mp3"),    
                 //   new Audio("Album/tracks/04 - Faster.mp3"),
@@ -128,11 +129,17 @@ function addTracksToList()
                 }
                 else
                 {
+             
                     playlist[isPlayingTrack].pause();
                     playlist[isPlayingTrack].currentTime = 0;
-                    isPlayingTrack = i;
-                    playIcon.classList.add("hide");
-                    pauseIcon.classList.remove("hide");
+
+                    console.log("Swithcing from track : " + isPlayingTrack);
+                    isPlayingTrack = i+1;
+                    console.log("to track : " + isPlayingTrack);
+                    
+                    playIcon.classList.remove("hide");
+                    pauseIcon.classList.add("hide");
+
                     playlist[i].addEventListener("ended", function()
                     {
                         pauseIcon.classList.add("hide");
@@ -144,7 +151,6 @@ function addTracksToList()
                 }
                 playlist[i].play();
 
-                console.log("playing track : " + i+1)
             });
     
 
