@@ -81,7 +81,7 @@ function getTrackTime(timeInSeconds)
 
 }
 
-let isPlayingTrack = 0;
+let isPlayingTrack = false;
 
 
 function addTracksToList() 
@@ -114,23 +114,24 @@ function addTracksToList()
 
             playIcon.addEventListener("click", function() 
             {
-                if(isPlayingTrack == 0)
+                if(isPlayingTrack == false)
                 {
-                    isPlayingTrack = i+1;
+                    isPlayingTrack = true;
+                    s
                     playIcon.classList.add("hide");
                     pauseIcon.classList.remove("hide");
                     playlist[i].addEventListener("ended", function()
                     {
                         pauseIcon.classList.add("hide");
                         playIcon.classList.remove("hide");
-                        isPlayingTrack = 0;
+                        isPlayingTrack = false;
 
                     });
                 }
                 else
                 {
              
-                    playlist[isPlayingTrack].pause();
+                    playlist[isPlayingTrack].pause()
                     playlist[isPlayingTrack].currentTime = 0;
                     const trackPlaying = playlist[isPlayingTrack].querySelector("nth-child(2)");
                     console.log(trackPlaying);
