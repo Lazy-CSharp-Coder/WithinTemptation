@@ -19,6 +19,7 @@ let songPlaying = 0;
 const nowPlayingText = document.querySelector("#nowPlayingText");
 const recordIcon = document.querySelector("#recordIcon");
 const playIconFileName = "/Icons/playwhite.png";
+const pauseIconFileName = "/Icons/pause.png";
 
 function playNextSong()
 {
@@ -79,6 +80,8 @@ function getTrackTime(timeInSeconds)
 
 }
 
+let isPlayingTrack = 0;
+
 
 function addTracksToList() 
 {
@@ -94,19 +97,29 @@ function addTracksToList()
             const newListItem = document.createElement("li");
             const songNumber = document.createElement("p");
             const playIcon = document.createElement("img");
+            const pauseIcon = document.createElement("img");
             const songTitle = document.createElement("p");
             const songLength = document.createElement("p");
            
             songNumber.textContent = i+1;
             playIcon.src = playIconFileName;
+            pauseIcon.src = pauseIconFileName;
+
             playIcon.classList.add("playIcon");
+            pauseIcon.classList.add("hide");
             
             // legg inn eventlistener for play icon for hver track
 
             playIcon.addEventListener("click", function() 
             {
-
+                if(isPlayingTrack == 0)
+                {
+                    isPlayingTrack = i+1;
+                    playIcon.classList.add("hide");
+                    pauseIcon.classList.remove("hide");
+                }
                 playlist[i].play();
+
                 console.log("playing track : " + i+1)
             });
     
