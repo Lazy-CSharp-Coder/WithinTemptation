@@ -132,6 +132,9 @@ function addTracksToList()
              
                     playlist[isPlayingTrack].pause();
                     playlist[isPlayingTrack].currentTime = 0;
+                    const trackPlaying = playlist[isPlayingTrack].querySelector("nth-child(2)");
+                    console.log(trackPlaying);
+                    trackPlaying.classList.add("hide");
 
                     console.log("Swithcing from track : " + isPlayingTrack);
                     isPlayingTrack = i+1;
