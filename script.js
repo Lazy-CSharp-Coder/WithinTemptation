@@ -55,7 +55,7 @@ function playButtonToggle()
     {
 
         recordIcon.style.animationIterationCount = "infinite";
-        pauseIcon.classList.remove("hide"); |
+        pauseIcon.classList.remove("hide"); 
         playIcon.classList.add("hide");
         isPlaying = true;
         playNextSong();
