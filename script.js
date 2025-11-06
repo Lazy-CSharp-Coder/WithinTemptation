@@ -1,16 +1,15 @@
-const playlist = [ new Audio("Album/tracks/01 - Why Not Me.mp3"),  
-                   new Audio("Album/tracks/01 - Why Not Me.mp3"),    
-                //    new Audio("MP3/02 - Shot In The Dark.mp3"),
-                //    new Audio("Album/tracks/03 - In The Middle Of The Night.mp3"),    
-                //   new Audio("Album/tracks/04 - Faster.mp3"),
-                //   new Audio("Album/tracks/05 - Fire And Ice.mp3"),    
-                //   new Audio("Album/tracks/06 - Iron.mp3"),
-                //    new Audio("Album/tracks/07 - Where Is The Edge.mp3"),    
-                //    new Audio("Album/tracks/08 - Sinead.mp3"),
-                //    new Audio("Album/tracks/09 - Lost.mp3"),    
-                //    new Audio("Album/tracks/10 - Murder.mp3"),
-                //    new Audio("Album/tracks/11 - A Demons's Fate.mp3"),    
-                //    new Audio("Album/tracks/12 - Stairway To The Skies.mp3"),
+const playlist = [ new Audio("AudioTracks/01 - Why Not Me.mp3"),  
+                    new Audio("AudioTracks/02 - Shot In The Dark.mp3"),
+                   new Audio("AudioTracks/03 - In The Middle Of The Night.mp3"),    
+                  new Audio("AudioTracks/04 - Faster.mp3"),
+                  new Audio("AudioTracks/05 - Fire And Ice.mp3"),    
+                  new Audio("AudioTracks/06 - Iron.mp3"),
+                   new Audio("AudioTracks/07 - Where Is The Edge.mp3"),    
+                   new Audio("AudioTracks/08 - Sinead.mp3"),
+                   new Audio("AudioTracks/09 - Lost.mp3"),    
+                   new Audio("AudioTrackc/10 - Murder.mp3"),
+                   new Audio("AudioTrackc/11 - A Demons's Fate.mp3"),    
+                   new Audio("AudioTrackc/12 - Stairway To The Skies.mp3"),
                  ];
 
 const songNameList = [ "Why Not Me", "Shot In The Dark", "In The Middle Of The Night", "Faster", "Fire And Ice", "Iron", "Where Is The Edge", "Sinead", "Lost", "Murder", "A Demon's Fate", "Stairway To The Skies"];
@@ -89,6 +88,9 @@ function addTracksToList()
     const tracks = document.querySelector("#tracks");
     console.log(tracks);
     
+    let delay = 0;
+    const delayInc = 200;
+
     for(let i = 0; i < playlist.length; ++i)
     {
         playlist[i].load();
@@ -117,7 +119,7 @@ function addTracksToList()
                 if(isPlayingTrack == false)
                 {
                     isPlayingTrack = true;
-                    s
+                    
                     playIcon.classList.add("hide");
                     pauseIcon.classList.remove("hide");
                     playlist[i].addEventListener("ended", function()
@@ -167,10 +169,9 @@ function addTracksToList()
             newListItem.appendChild(pauseIcon);
             newListItem.appendChild(songTitle);
             newListItem.appendChild(songLength);
-    
-            tracks.appendChild(newListItem);
-            newListItem.classList.add("slideInTopAnim");
-
+                
+            setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim") }, delay);
+            delay += delayInc;
         });
        
     }
