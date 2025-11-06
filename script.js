@@ -23,6 +23,7 @@ const pauseIconFileName = "/Icons/pause.png";
 
 function playNextSong()
 {
+    
     if(isPlayingTrack)
     {
         listIconsArray[trackNumberPlaying].play.classList.remove("hide");
@@ -51,6 +52,7 @@ function playNextSong()
 
 function playButtonToggle()
 {
+    console.log(playlist);
     const playIcon = document.querySelector("#playIcon");
     const pauseIcon = document.querySelector("#pauseIcon");
     if(isPlaying)
