@@ -93,7 +93,7 @@ function getTrackTime(timeInSeconds)
 }
 
 let isPlayingTrack = false;
-let trackNumberPlaying = -1;
+let trackNumberPlaying = 0;
 
 const listIconsArray = [];
 
@@ -122,7 +122,7 @@ function addTracksToList()
             playIcon.src = playIconFileName;
             pauseIcon.src = pauseIconFileName;
                            
-            listIconsArray.push({play : playIcon, pause : pauseIcon});
+            listIconsArray[i] = {play : playIcon, pause : pauseIcon};            
             console.log(listIconsArray);
 
             playIcon.classList.add("playIcon");
