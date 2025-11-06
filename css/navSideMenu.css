@@ -1,4 +1,4 @@
-@import "../styles.css";
+/* @import "../styles.css"; */
 @import "./animations.css";
 
 .monsterLogoMenu 
@@ -38,15 +38,24 @@
 
 .subMenuList {
   display: flex;
-   list-style: square;
+  list-style-type: circle;
+  
 
+}
+
+.subMenuList li::marker{
+  content : "💿";
 }
 
 .subMenuItem {
+  display: flex;
   font-size:10px;
    color: lightskyblue;
+   padding-left: 10px;
+
 
 }
+
 
 
 .greaterThanIcon {
