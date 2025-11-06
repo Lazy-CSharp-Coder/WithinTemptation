@@ -213,7 +213,16 @@ function loadAlbumTracksWithAnim()
 function rotateCoverOut()
 {  
     const coverImage = document.querySelector("#coverImage");
-    coverImage.classList.add("rotateXOutAnim");
+    coverImage.classList.remove("rotateYInAnim");
+    coverImage.classList.add("rotateYOutAnim");
+
+    coverImage.addEventListener("animationend", function()
+    {
+
+        coverImage.src = "/Album/theheartofeverything.jpg";
+        coverImage.classList.remove("rotateYOutAnim");
+        coverImage.classList.add("rotateYInAnim");
+    }, {once:true});
 
 }
 
