@@ -210,6 +210,16 @@ function loadAlbumTracksWithAnim()
     
 }
 
+function rotateCoverOut()
+{  
+    const coverImage = document.querySelector("#coverImage");
+    coverImage.classList.add("rotateXOutAnim");
+
+}
+
+const menuChoice = document.querySelector("#heartOfEverything");
+menuChoice.addEventListener("click", rotateCoverOut);
+
 
 
 
