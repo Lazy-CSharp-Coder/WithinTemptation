@@ -23,6 +23,15 @@ const pauseIconFileName = "/Icons/pause.png";
 
 function playNextSong()
 {
+    if(isPlayingTrack)
+    {
+        listIconsArray[trackNumberPlaying].play.classList.remove("hide");
+        listIconsArray[trackNumberPlaying].pause.classList.add("hide");
+        playlist[trackNumberPlaying].pause();
+        playlist[trackNumberPlaying].currentTime = 0;
+        
+    }
+
     if(songPlaying < playlist.length)
     {
         playlist[songPlaying].play();
@@ -73,7 +82,8 @@ function getTrackTime(timeInSeconds)
     const minutes = Math.floor(timeInSeconds/60);
     console.log(minutes);
     const seconds = Math.floor(timeInSeconds - (minutes * 60));
-    if(seconds.length == 1) seconds = "0" + seconds;
+    if(seconds < 10) seconds = "0" + seconds;
+ 
     console.log(seconds);
 
     return `${minutes} : ${seconds}`;
@@ -81,7 +91,9 @@ function getTrackTime(timeInSeconds)
 }
 
 let isPlayingTrack = false;
+let trackNumberPlaying = -1;
 
+const listIconsArray = [];
 
 function addTracksToList() 
 {
@@ -107,55 +119,55 @@ function addTracksToList()
             songNumber.textContent = i+1;
             playIcon.src = playIconFileName;
             pauseIcon.src = pauseIconFileName;
+                           
+            listIconsArray.push({play : playIcon, pause : pauseIcon});
+            console.log(listIconsArray);
 
             playIcon.classList.add("playIcon");
             pauseIcon.classList.add("hide");
-            pauseIcon.classList.add("playIcon");
+            pauseIcon.classList.add("pauseIcon");
             
             // legg inn eventlistener for play icon for hver track
 
             playIcon.addEventListener("click", function() 
             {
-                if(isPlayingTrack == false)
+                if(isPlayingTrack)
                 {
-                    isPlayingTrack = true;
-                    
-                    playIcon.classList.add("hide");
-                    pauseIcon.classList.remove("hide");
-                    playlist[i].addEventListener("ended", function()
-                    {
-                        pauseIcon.classList.add("hide");
-                        playIcon.classList.remove("hide");
-                        isPlayingTrack = false;
-
-                    });
-                }
-                else
-                {
-             
-                    playlist[isPlayingTrack].pause()
-                    playlist[isPlayingTrack].currentTime = 0;
-                    const trackPlaying = playlist[isPlayingTrack].querySelector("nth-child(2)");
-                    console.log(trackPlaying);
-                    trackPlaying.classList.add("hide");
-
-                    console.log("Swithcing from track : " + isPlayingTrack);
-                    isPlayingTrack = i+1;
-                    console.log("to track : " + isPlayingTrack);
-                    
-                    playIcon.classList.remove("hide");
-                    pauseIcon.classList.add("hide");
-
-                    playlist[i].addEventListener("ended", function()
-                    {
-                        pauseIcon.classList.add("hide");
-                        playIcon.classList.remove("hide");
-                        isPlayingTrack = 0;
-
-                    });
-              
+                    playlist[trackNumberPlaying].pause()
+                    playlist[trackNumberPlaying].currentTime = 0;
+                    console.log(listIconsArray);
+                    console.log(listIconsArray[trackNumberPlaying])
+            
+                    listIconsArray[trackNumberPlaying].play.classList.remove("hide");
+                    listIconsArray[trackNumberPlaying].pause.classList.add("hide");
                 }
                 playlist[i].play();
+                
+                trackNumberPlaying = i;
+                isPlayingTrack = true;
+                playlist[i].addEventListener("playing", function()
+                {
+                    playIcon.classList.add("hide");
+                    pauseIcon.classList.remove("hide");
+                });
+                  
+                playlist[i].addEventListener("ended", function()
+                {
+                    pauseIcon.classList.add("hide");
+                    playIcon.classList.remove("hide");
+                    isPlayingTrack = false;
+                    trackNumberPlaying = -1;
+
+                });
+        
+
+            });
+
+            pauseIcon.addEventListener("click", function() 
+            {
+                playlist[i].pause();
+                playIcon.classList.remove("hide");
+                pauseIcon.classList.add("hide");
 
             });
     
@@ -169,6 +181,7 @@ function addTracksToList()
             newListItem.appendChild(pauseIcon);
             newListItem.appendChild(songTitle);
             newListItem.appendChild(songLength);
+         
                 
             setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim") }, delay);
             delay += delayInc;
