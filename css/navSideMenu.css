@@ -37,9 +37,17 @@
 }
 
 .subMenuList {
-   font-size:10px;
-   color: lightskyblue;
+  display: flex;
+   list-style: square;
+
 }
+
+.subMenuItem {
+  font-size:10px;
+   color: lightskyblue;
+
+}
+
 
 .greaterThanIcon {
   height: 15px;
