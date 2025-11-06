@@ -219,9 +219,15 @@ function rotateCoverOut()
     coverImage.addEventListener("animationend", function()
     {
 
-        coverImage.src = "/Album/theheartofeverything.jpg";
+        coverImage.src = "/Album/theheartofeverything.png";
         coverImage.classList.remove("rotateYOutAnim");
         coverImage.classList.add("rotateYInAnim");
+
+        const albumTitleText = document.querySelector("#albumTitleText");
+        albumTitleText.classList.add("scaleInAnim");
+        albumTitleText.textContent = "The Heart Of Everything";
+
+
     }, {once:true});
 
 }
