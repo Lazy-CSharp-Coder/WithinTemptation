@@ -205,7 +205,7 @@ function loadAlbumTracksWithAnim()
     if(currentScrollPos > limitScrollYPos && !listIsLoaded)
     {
         addTracksToList();
-        listIsLoaded = true;
+        listIsLoaded = true; 
     }
     
 }
@@ -216,6 +216,10 @@ function rotateCoverOut()
     coverImage.classList.remove("rotateYInAnim");
     coverImage.classList.add("rotateYOutAnim");
 
+    
+    const albumTitleText = document.querySelector("#albumTitleText");
+    albumTitleText.classList.add("rotateYOutAnim");
+
     coverImage.addEventListener("animationend", function()
     {
 
@@ -223,8 +227,10 @@ function rotateCoverOut()
         coverImage.classList.remove("rotateYOutAnim");
         coverImage.classList.add("rotateYInAnim");
 
-        const albumTitleText = document.querySelector("#albumTitleText");
-        albumTitleText.classList.add("scaleInAnim");
+        // const albumTitleText = document.querySelector("#albumTitleText");
+        albumTitleText.classList.remove("rotateYOutAnim");
+        albumTitleText.classList.add("rotateYInAnim");
+
         albumTitleText.textContent = "The Heart Of Everything";
 
 
