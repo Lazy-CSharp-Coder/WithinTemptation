@@ -36,6 +36,11 @@
   z-index: 100;
 }
 
+.subMenuList {
+   font-size:10px;
+   color: lightskyblue;
+}
+
 .greaterThanIcon {
   height: 15px;
 }
