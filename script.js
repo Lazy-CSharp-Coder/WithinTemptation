@@ -7,9 +7,9 @@ const playlist = [ new Audio("AudioTracks/01 - Why Not Me.mp3"),
                    new Audio("AudioTracks/07 - Where Is The Edge.mp3"),    
                    new Audio("AudioTracks/08 - Sinead.mp3"),
                    new Audio("AudioTracks/09 - Lost.mp3"),    
-                   new Audio("AudioTrackc/10 - Murder.mp3"),
-                   new Audio("AudioTrackc/11 - A Demons's Fate.mp3"),    
-                   new Audio("AudioTrackc/12 - Stairway To The Skies.mp3"),
+                   new Audio("AudioTracks/10 - Murder.mp3"),
+                   new Audio("AudioTracks/11 - A Demon's Fate.mp3"),    
+                   new Audio("AudioTracks/12 - Stairway To The Skies.mp3"),
                  ];
 
 const songNameList = [ "Why Not Me", "Shot In The Dark", "In The Middle Of The Night", "Faster", "Fire And Ice", "Iron", "Where Is The Edge", "Sinead", "Lost", "Murder", "A Demon's Fate", "Stairway To The Skies"];
