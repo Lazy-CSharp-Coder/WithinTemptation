@@ -14,9 +14,10 @@
   
   .uppeerSectionContainerDiv {
     
-    display: grid;
-    grid-template-columns: auto auto;
-    /* flex-direction: row; */
+    display: flex;
+    width: 100vw;
+    /* grid-template-columns: 60% 40%; */
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     /* gap: 1000px; */
