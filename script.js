@@ -12,6 +12,17 @@ const playlist = [ new Audio("AudioTracks/01 - Why Not Me.mp3"),
                    new Audio("AudioTracks/12 - Stairway To The Skies.mp3"),
                  ];
 
+
+type audioTrack = 
+{
+    trackNumber : Number;
+    trackName : String;
+    trackMinutes : Number;
+    trackSeconds : Number;
+    audio : Audio;
+
+}
+
 const songNameList = [ "Why Not Me", "Shot In The Dark", "In The Middle Of The Night", "Faster", "Fire And Ice", "Iron", "Where Is The Edge", "Sinead", "Lost", "Murder", "A Demon's Fate", "Stairway To The Skies"];
 let isPlaying = false;
 let songPlaying = 0;
@@ -107,7 +118,7 @@ function addTracksToList()
 
     for(let i = 0; i < playlist.length; ++i)
     {
-        playlist[i].load();
+        playlist[i].load(); 
 
         playlist[i].addEventListener("loadedmetadata", function() 
         {
@@ -122,7 +133,7 @@ function addTracksToList()
             playIcon.src = playIconFileName;
             pauseIcon.src = pauseIconFileName;
                            
-            listIconsArray[i] = {play : playIcon, pause : pauseIcon};            
+                
             console.log(listIconsArray);
 
             playIcon.classList.add("playIcon");
@@ -185,7 +196,7 @@ function addTracksToList()
             newListItem.appendChild(songLength);
          
                 
-            setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim") }, delay);
+            setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim");  listIconsArray[i] = {play : playIcon, pause : pauseIcon};   }, delay);
             delay += delayInc;
         });
        
