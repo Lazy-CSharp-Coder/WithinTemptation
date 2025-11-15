@@ -1,31 +1,31 @@
-const playlist = [ new Audio("AudioTracks/01 - Why Not Me.mp3"),  
-                    new Audio("AudioTracks/02 - Shot In The Dark.mp3"),
-                   new Audio("AudioTracks/03 - In The Middle Of The Night.mp3"),    
-                  new Audio("AudioTracks/04 - Faster.mp3"),
-                  new Audio("AudioTracks/05 - Fire And Ice.mp3"),    
-                  new Audio("AudioTracks/06 - Iron.mp3"),
-                   new Audio("AudioTracks/07 - Where Is The Edge.mp3"),    
-                   new Audio("AudioTracks/08 - Sinead.mp3"),
-                   new Audio("AudioTracks/09 - Lost.mp3"),    
-                   new Audio("AudioTracks/10 - Murder.mp3"),
-                   new Audio("AudioTracks/11 - A Demon's Fate.mp3"),    
-                   new Audio("AudioTracks/12 - Stairway To The Skies.mp3"),
-                 ];
+const albums = 
+[
+   {    albumName : "The Unforgiving",
+        albumCover : "/Album/theunforgiving.jpg",
+        releaseDate : new Date(2011, 4, 24),
+        tracks : [ 
+             { nr : 1, title : "Why Not Me", audio : new Audio("AudioTracks/01 - Why Not Me.mp3"),  time : "0:0" },
+             { nr : 2, title : "Shot In The Dark" ,audio :  new Audio("AudioTracks/02 - Shot In The Dark.mp3"), time : "0:0" },
+             { nr : 3, title : "In The Middle Of The Night", audio :  new Audio("AudioTracks/03 - In The Middle Of The Night.mp3"), time : "0:0"},
+             { nr : 4,  title : "Faster", audio :  new Audio("AudioTracks/04 - Faster.mp3"),  time : "0:0" },
+             { nr : 5,  title : "Fire And Ice", audio :  new Audio("AudioTracks/05 - Fire And Ice.mp3"),  time : "0:0" },
+             { nr : 6,  title : "Iron", audio :  new Audio("AudioTracks/06 - Iron.mp3"), time : "0:0" },
+             { nr : 7,  title : "Where Is The Edge", audio :  new Audio("AudioTracks/07 - Where Is The Edge.mp3"),    time : "0:0"},
+             { nr : 8,  title : "Sinead", audio :  new Audio("AudioTracks/08 - Sinead.mp3"),  time : "0:0"} ,
+             { nr : 9,  title : "Lost", audio :  new Audio("AudioTracks/09 - Lost.mp3"),    time : "0:0"},
+             { nr : 10,  title : "Murder", audio : new Audio("AudioTracks/10 - Murder.mp3"),  time : "0:0" },
+             { nr : 11,  title : "A Demon's Fate", audio : new Audio("AudioTracks/11 - A Demon's Fate.mp3"),    time : "0:0" },
+             { nr : 12,  title : "Stairway To The Skies", audio : new Audio("AudioTracks/12 - Stairway To The Skies.mp3"), time : "0:0"},
+            
+             ]
+    }
+];
 
+// data containing album playing
 
-type audioTrack = 
-{
-    trackNumber : Number;
-    trackName : String;
-    trackMinutes : Number;
-    trackSeconds : Number;
-    audio : Audio;
-
-}
-
-const songNameList = [ "Why Not Me", "Shot In The Dark", "In The Middle Of The Night", "Faster", "Fire And Ice", "Iron", "Where Is The Edge", "Sinead", "Lost", "Murder", "A Demon's Fate", "Stairway To The Skies"];
 let isPlaying = false;
 let songPlaying = 0;
+let currentAlbum = 0;
 
 const nowPlayingText = document.querySelector("#nowPlayingText");
 const recordIcon = document.querySelector("#recordIcon");
@@ -39,18 +39,18 @@ function playNextSong()
     {
         listIconsArray[trackNumberPlaying].play.classList.remove("hide");
         listIconsArray[trackNumberPlaying].pause.classList.add("hide");
-        playlist[trackNumberPlaying].pause();
-        playlist[trackNumberPlaying].currentTime = 0;
+        albums[currentAlbum].tracks[trackNumberPlaying].audio.pause();
+        albums[currentAlbum].tracks[trackNumberPlaying].audiocurrentTime = 0;
         
     }
 
     if(songPlaying < playlist.length)
     {
-        playlist[songPlaying].play();
+        albums[currentAlbum].tracks[trackNumberPlaying].audio.play();
         
         nowPlayingText.textContent = songNameList[songPlaying];
             
-        playlist[songPlaying].addEventListener("ended", () => { songPlaying++; playNextSong(); });
+        albums[currentAlbum].tracks[trackNumberPlaying].audio.addEventListener("ended", () => { songPlaying++; playNextSong(); });
     }
     else 
     {
@@ -70,7 +70,7 @@ function playButtonToggle()
     {
         pauseIcon.classList.add("hide");
         playIcon.classList.remove("hide");
-        playlist[songPlaying].pause();
+        albums[currentAlbum].tracks[trackNumberPlaying].audio.pause();
         isPlaying = false;
         recordIcon.style.animationIterationCount = "0";
     }
@@ -94,7 +94,7 @@ function getTrackTime(timeInSeconds)
 {
     const minutes = Math.floor(timeInSeconds/60);
     console.log(minutes);
-    const seconds = Math.floor(timeInSeconds - (minutes * 60));
+    let seconds = Math.floor(timeInSeconds - (minutes * 60));
     if(seconds < 10) seconds = "0" + seconds;
  
     console.log(seconds);
@@ -102,6 +102,24 @@ function getTrackTime(timeInSeconds)
     return `${minutes} : ${seconds}`;
 
 }
+
+function loadMetaData()
+{
+    const numTracks = albums[currentAlbum].tracks.length;
+    for(let i = 0; i < numTracks; ++i)
+    {
+        const currTrack = albums[currentAlbum].tracks[i];
+        currTrack.audio.load();
+        currTrack.audio.addEventListener("loadedmetadata", function() 
+        {
+            currTrack.time = getTrackTime(currTrack.audio.duration);
+            console.log("Meta data loaded");
+        });
+    }
+
+}
+
+loadMetaData();
 
 let isPlayingTrack = false;
 let trackNumberPlaying = 0;
@@ -112,95 +130,88 @@ function addTracksToList()
 {
     const tracks = document.querySelector("#tracks");
     console.log(tracks);
-    
+
     let delay = 0;
     const delayInc = 200;
+    const numTracks = albums[currentAlbum].tracks.length;
 
-    for(let i = 0; i < playlist.length; ++i)
-    {
-        playlist[i].load(); 
-
-        playlist[i].addEventListener("loadedmetadata", function() 
-        {
-            const newListItem = document.createElement("li");
-            const songNumber = document.createElement("p");
-            const playIcon = document.createElement("img");
-            const pauseIcon = document.createElement("img");
-            const songTitle = document.createElement("p");
-            const songLength = document.createElement("p");
-           
-            songNumber.textContent = i+1;
-            playIcon.src = playIconFileName;
-            pauseIcon.src = pauseIconFileName;
-                           
-                
-            console.log(listIconsArray);
-
-            playIcon.classList.add("playIcon");
-            pauseIcon.classList.add("hide");
-            pauseIcon.classList.add("pauseIcon");
-            
-            // legg inn eventlistener for play icon for hver track
-
-            playIcon.addEventListener("click", function() 
-            {
-                if(isPlayingTrack)
-                {
-                    playlist[trackNumberPlaying].pause()
-                    playlist[trackNumberPlaying].currentTime = 0;
-                    console.log(listIconsArray);
-                    console.log(listIconsArray[trackNumberPlaying])
-            
-                    listIconsArray[trackNumberPlaying].play.classList.remove("hide");
-                    listIconsArray[trackNumberPlaying].pause.classList.add("hide");
-                }
-                playlist[i].play();
-                
-                trackNumberPlaying = i;
-                isPlayingTrack = true;
-                playlist[i].addEventListener("playing", function()
-                {
-                    playIcon.classList.add("hide");
-                    pauseIcon.classList.remove("hide");
-                });
-                  
-                playlist[i].addEventListener("ended", function()
-                {
-                    pauseIcon.classList.add("hide");
-                    playIcon.classList.remove("hide");
-                    isPlayingTrack = false;
-                    trackNumberPlaying = -1;
-
-                });
+    for(let i = 0; i < numTracks; ++i)
+    {        
+        const newListItem = document.createElement("li");
+        const songNumber = document.createElement("p");
+        const playIcon = document.createElement("img");
+        const pauseIcon = document.createElement("img");
+        const songTitle = document.createElement("p");
+        const songLength = document.createElement("p");
         
+        songNumber.textContent = albums[currentAlbum].tracks[i].nr;
+        songTitle.textContent = albums[currentAlbum].tracks[i].title;
+        songLength.textContent = albums[currentAlbum].tracks[i].time;
+        playIcon.src = playIconFileName;
+        pauseIcon.src = pauseIconFileName;
+                   
+            
+        console.log(listIconsArray);
 
-            });
+        playIcon.classList.add("playIcon");
+        pauseIcon.classList.add("hide");
+        pauseIcon.classList.add("pauseIcon");
+        
+        // legg inn eventlistener for play icon for hver track
 
-            pauseIcon.addEventListener("click", function() 
-            {
-                playlist[i].pause();
-                playIcon.classList.remove("hide");
-                pauseIcon.classList.add("hide");
-
-            });
-    
-
-            songTitle.textContent = songNameList[i];
-            console.log(playlist[i].duration);
-            songLength.textContent = getTrackTime(playlist[i].duration);
-    
-            newListItem.appendChild(songNumber);
-            newListItem.appendChild(playIcon);
-            newListItem.appendChild(pauseIcon);
-            newListItem.appendChild(songTitle);
-            newListItem.appendChild(songLength);
-         
+        // playIcon.addEventListener("click", function() 
+        // {
+        //     if(isPlayingTrack)
+        //     {
+        //         playlist[trackNumberPlaying].pause()
+        //         playlist[trackNumberPlaying].currentTime = 0;
+        //         console.log(listIconsArray);
+        //         console.log(listIconsArray[trackNumberPlaying])
+        
+        //         listIconsArray[trackNumberPlaying].play.classList.remove("hide");
+        //         listIconsArray[trackNumberPlaying].pause.classList.add("hide");
+        //     }
+        //     playlist[i].play();
+            
+        //     trackNumberPlaying = i;
+        //     isPlayingTrack = true;
+        //     playlist[i].addEventListener("playing", function()
+        //     {
+        //         playIcon.classList.add("hide");
+        //         pauseIcon.classList.remove("hide");
+        //     });
                 
-            setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim");  listIconsArray[i] = {play : playIcon, pause : pauseIcon};   }, delay);
-            delay += delayInc;
-        });
-       
-    }
+        //     playlist[i].addEventListener("ended", function()
+        //     {
+        //         pauseIcon.classList.add("hide");
+        //         playIcon.classList.remove("hide");
+        //         isPlayingTrack = false;
+        //         trackNumberPlaying = -1;
+
+        //     });
+    
+
+        //     });
+
+        //     pauseIcon.addEventListener("click", function() 
+        //     {
+        //         playlist[i].pause();
+        //         playIcon.classList.remove("hide");
+        //         pauseIcon.classList.add("hide");
+
+        //     });
+
+        newListItem.appendChild(songNumber);
+        newListItem.appendChild(playIcon);
+        newListItem.appendChild(pauseIcon);
+        newListItem.appendChild(songTitle);
+        newListItem.appendChild(songLength);
+                    
+        setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim");  listIconsArray[i] = {play : playIcon, pause : pauseIcon};   }, delay);
+        delay += delayInc;
+
+        
+    };
 }
 
 
