@@ -1,29 +1,11 @@
-const albums = 
-[
-   {    albumName : "The Unforgiving",
-        albumCover : "/Album/theunforgiving.jpg",
-        releaseDate : new Date(2011, 4, 24),
-        tracks : [ 
-             { nr : 1, title : "Why Not Me", audio : new Audio("AudioTracks/01 - Why Not Me.mp3"),  time : "0:0" },
-             { nr : 2, title : "Shot In The Dark" ,audio :  new Audio("AudioTracks/02 - Shot In The Dark.mp3"), time : "0:0" },
-             { nr : 3, title : "In The Middle Of The Night", audio :  new Audio("AudioTracks/03 - In The Middle Of The Night.mp3"), time : "0:0"},
-             { nr : 4,  title : "Faster", audio :  new Audio("AudioTracks/04 - Faster.mp3"),  time : "0:0" },
-             { nr : 5,  title : "Fire And Ice", audio :  new Audio("AudioTracks/05 - Fire And Ice.mp3"),  time : "0:0" },
-             { nr : 6,  title : "Iron", audio :  new Audio("AudioTracks/06 - Iron.mp3"), time : "0:0" },
-             { nr : 7,  title : "Where Is The Edge", audio :  new Audio("AudioTracks/07 - Where Is The Edge.mp3"),    time : "0:0"},
-             { nr : 8,  title : "Sinead", audio :  new Audio("AudioTracks/08 - Sinead.mp3"),  time : "0:0"} ,
-             { nr : 9,  title : "Lost", audio :  new Audio("AudioTracks/09 - Lost.mp3"),    time : "0:0"},
-             { nr : 10,  title : "Murder", audio : new Audio("AudioTracks/10 - Murder.mp3"),  time : "0:0" },
-             { nr : 11,  title : "A Demon's Fate", audio : new Audio("AudioTracks/11 - A Demon's Fate.mp3"),    time : "0:0" },
-             { nr : 12,  title : "Stairway To The Skies", audio : new Audio("AudioTracks/12 - Stairway To The Skies.mp3"), time : "0:0"},
-            
-             ]
-    }
-];
 
+import { albums } from "./js/albums.js";
 // data containing album playing
 
-let isPlaying = false;
+let isPlayingTrack = false; // related to complete track list
+let trackNumberPlaying = 0;
+
+let isPlaying = false;  // related to play button 
 let songPlaying = 0;
 let currentAlbum = 0;
 
@@ -41,20 +23,21 @@ function playNextSong()
         listIconsArray[trackNumberPlaying].pause.classList.add("hide");
         albums[currentAlbum].tracks[trackNumberPlaying].audio.pause();
         albums[currentAlbum].tracks[trackNumberPlaying].audiocurrentTime = 0;
-        
     }
 
-    if(songPlaying < playlist.length)
+    if(songPlaying < albums[currentAlbum].tracks.length)
     {
-        albums[currentAlbum].tracks[trackNumberPlaying].audio.play();
+  
+        const newtrack = albums[currentAlbum].tracks[trackNumberPlaying];
+        newtrack.audio.play();
         
-        nowPlayingText.textContent = songNameList[songPlaying];
+        nowPlayingText.textContent = newtrack.title;
             
-        albums[currentAlbum].tracks[trackNumberPlaying].audio.addEventListener("ended", () => { songPlaying++; playNextSong(); });
+        newtrack.audio.addEventListener("ended", () => { trackNumberPlaying++; playNextSong(); });
     }
     else 
     {
-        songPlaying = 0;
+        trackNumberPlaying = 0;
         nowPlayingText.style.animationIteration = "0";
         playButtonToggle();
     }
@@ -63,7 +46,6 @@ function playNextSong()
 
 function playButtonToggle()
 {
-    console.log(playlist);
     const playIcon = document.querySelector("#playIcon");
     const pauseIcon = document.querySelector("#pauseIcon");
     if(isPlaying)
@@ -105,30 +87,119 @@ function getTrackTime(timeInSeconds)
 
 function loadMetaData()
 {
-    const numTracks = albums[currentAlbum].tracks.length;
-    for(let i = 0; i < numTracks; ++i)
+    for(let j = 0; j < albums.length; ++j)
     {
-        const currTrack = albums[currentAlbum].tracks[i];
-        currTrack.audio.load();
-        currTrack.audio.addEventListener("loadedmetadata", function() 
+        const numTracks = albums[j].tracks.length;
+        for(let i = 0; i < numTracks; ++i)
         {
-            currTrack.time = getTrackTime(currTrack.audio.duration);
-            console.log("Meta data loaded");
-        });
+            const currTrack = albums[j].tracks[i];
+            currTrack.audio.load();
+            currTrack.audio.addEventListener("loadedmetadata", function() 
+            {
+                currTrack.time = getTrackTime(currTrack.audio.duration);
+            
+            });
+        }
     }
+    
+
+}
+const load = new Promise((resolve, reject) => 
+    {
+        loadMetaData();
+        resolve("meta data loaded");
+
+    }); 
+
+
+let isAlbumListVisible = false;
+
+function switchAlbums(newAlbum)
+{  
+    const coverImage = document.querySelector("#coverImage");
+    coverImage.classList.remove("rotateYInAnim");
+    coverImage.classList.add("rotateYOutAnim");
+    
+    const albumTitleText = document.querySelector("#albumTitleText");
+    albumTitleText.classList.add("rotateYOutAnim");
+
+    coverImage.addEventListener("animationend", function()
+    {
+
+        coverImage.src = albums[newAlbum].albumCover;
+        coverImage.classList.remove("rotateYOutAnim");
+        coverImage.classList.add("rotateYInAnim");
+
+        // const albumTitleText = document.querySelector("#albumTitleText");
+        albumTitleText.classList.remove("rotateYOutAnim");
+        albumTitleText.classList.add("rotateYInAnim");
+
+        albumTitleText.textContent = albums[newAlbum].albumName;
+
+        // skjekk variabler, currentAlbum har blitt nytt album - fiks  
+        if(isPlaying)
+        {
+            albums[currentAlbum].tracks[trackNumberPlaying].audio.pause();
+            isPlayingTrack = false;
+        }
+  
+
+    }, {once:true});
 
 }
 
-loadMetaData();
 
-let isPlayingTrack = false;
-let trackNumberPlaying = 0;
+function displayAlbumSubMenu()
+{
+    const albumSubMenuList = document.querySelector("#albumSubMenuList");
+    // while(albumSubMenuList.lastChild) albumSubMenuList.remove(albumSubMenuList.lastChild);
+
+    for(let i = 0; i < albums.length; ++i)
+    {
+        if(isAlbumListVisible)
+        {
+
+            const childNodes = Array.from(albumSubMenuList.children);
+            for(let i = 0; i < childNodes.length; ++i)
+            {
+                childNodes[i].remove();
+             
+                 
+            }
+            console.log("list removed");
+           isAlbumListVisible = false;
+           return;
+        }
+        const newItem = document.createElement("li");
+        newItem.textContent = albums[i].albumName;
+        newItem.classList.add("subMenuItem", "scaleInAnim");
+        albumSubMenuList.appendChild(newItem);
+
+        newItem.addEventListener("click", function() 
+        { 
+           
+            albumHasChanged = true;
+            switchAlbums(i);
+            currentAlbum = i;
+           
+            loadAlbumTracksWithAnim();
+
+        });
+    };
+}
+
+
+
+
 
 const listIconsArray = [];
 
-function addTracksToList() 
+async function addTracksToList() 
 {
+
+  
     const tracks = document.querySelector("#tracks");
+    while(tracks.lastChild) tracks.removeChild(tracks.lastChild);
     console.log(tracks);
 
     let delay = 0;
@@ -159,47 +230,45 @@ function addTracksToList()
         
         // legg inn eventlistener for play icon for hver track
 
-        // playIcon.addEventListener("click", function() 
-        // {
-        //     if(isPlayingTrack)
-        //     {
-        //         playlist[trackNumberPlaying].pause()
-        //         playlist[trackNumberPlaying].currentTime = 0;
-        //         console.log(listIconsArray);
-        //         console.log(listIconsArray[trackNumberPlaying])
+        playIcon.addEventListener("click", function() 
+        {
+            if(isPlayingTrack)
+            {
+                albums[currentAlbum].tracks[trackNumberPlaying].audio.pause()
+                albums[currentAlbum].tracks[trackNumberPlaying].audio.currentTime = 0;
         
-        //         listIconsArray[trackNumberPlaying].play.classList.remove("hide");
-        //         listIconsArray[trackNumberPlaying].pause.classList.add("hide");
-        //     }
-        //     playlist[i].play();
-            
-        //     trackNumberPlaying = i;
-        //     isPlayingTrack = true;
-        //     playlist[i].addEventListener("playing", function()
-        //     {
-        //         playIcon.classList.add("hide");
-        //         pauseIcon.classList.remove("hide");
-        //     });
+                listIconsArray[trackNumberPlaying].play.classList.remove("hide");
+                listIconsArray[trackNumberPlaying].pause.classList.add("hide");
+            }
+            trackNumberPlaying = i;
+            const trackPlayingNow = albums[currentAlbum].tracks[trackNumberPlaying];
+            trackPlayingNow.audio.play();
+                       
+            isPlayingTrack = true;
+            trackPlayingNow.audio.addEventListener("playing", function()
+            {
+                playIcon.classList.add("hide");
+                pauseIcon.classList.remove("hide");
+            });
                 
-        //     playlist[i].addEventListener("ended", function()
-        //     {
-        //         pauseIcon.classList.add("hide");
-        //         playIcon.classList.remove("hide");
-        //         isPlayingTrack = false;
-        //         trackNumberPlaying = -1;
+            trackPlayingNow.audio.addEventListener("ended", function()
+            {
+                pauseIcon.classList.add("hide");
+                playIcon.classList.remove("hide");
+                isPlayingTrack = false;
+                trackNumberPlaying = -1;
 
-        //     });
+            });
     
+        });
 
-        //     });
+        pauseIcon.addEventListener("click", function() 
+        {
+            albums[currentAlbum].tracks[trackNumberPlaying].audio.pause();
+            playIcon.classList.remove("hide");
+            pauseIcon.classList.add("hide");
 
-        //     pauseIcon.addEventListener("click", function() 
-        //     {
-        //         playlist[i].pause();
-        //         playIcon.classList.remove("hide");
-        //         pauseIcon.classList.add("hide");
-
-        //     });
+        });
 
         newListItem.appendChild(songNumber);
         newListItem.appendChild(playIcon);
@@ -211,7 +280,7 @@ function addTracksToList()
         delay += delayInc;
 
         
-    };
+    }; 
 }
 
 
@@ -221,50 +290,21 @@ window.addEventListener("scroll", loadAlbumTracksWithAnim);
 
 let listIsLoaded = false;
 const limitScrollYPos = 700;
+let albumHasChanged = false;
 
 function loadAlbumTracksWithAnim()
 {
     const currentScrollPos = window.scrollY;
 
-    if(currentScrollPos > limitScrollYPos && !listIsLoaded)
+    if(currentScrollPos > limitScrollYPos && (!listIsLoaded || albumHasChanged))
     {
+        
         addTracksToList();
         listIsLoaded = true; 
+        albumHasChanged = false;
     }
     
 }
-
-function rotateCoverOut()
-{  
-    const coverImage = document.querySelector("#coverImage");
-    coverImage.classList.remove("rotateYInAnim");
-    coverImage.classList.add("rotateYOutAnim");
-
-    
-    const albumTitleText = document.querySelector("#albumTitleText");
-    albumTitleText.classList.add("rotateYOutAnim");
-
-    coverImage.addEventListener("animationend", function()
-    {
-
-        coverImage.src = "/Album/theheartofeverything.png";
-        coverImage.classList.remove("rotateYOutAnim");
-        coverImage.classList.add("rotateYInAnim");
-
-        // const albumTitleText = document.querySelector("#albumTitleText");
-        albumTitleText.classList.remove("rotateYOutAnim");
-        albumTitleText.classList.add("rotateYInAnim");
-
-        albumTitleText.textContent = "The Heart Of Everything";
-
-
-    }, {once:true});
-
-}
-
-const menuChoice = document.querySelector("#heartOfEverything");
-menuChoice.addEventListener("click", rotateCoverOut);
-
 
 
 
@@ -298,12 +338,19 @@ function hamburgerToggle()
         isHamburgerVisible = false;
 
     }
+    const studioAlbumChoice = document.querySelector("#studioAlbumChoice");
+    studioAlbumChoice.addEventListener("click", function() 
+    {
 
+        displayAlbumSubMenu();
+        isAlbumListVisible = true;
+    });
+ 
 }
+
 
 const hamburgerIcon = document.querySelector("#hamburgerIcon");
 hamburgerIcon.addEventListener("click", hamburgerToggle);
 
 const closeMenuImg = document.querySelector("#closeMenuImg");
-// console.log(menuExitImg);
 closeMenuImg.addEventListener("click", hamburgerToggle);
