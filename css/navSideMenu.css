@@ -3,11 +3,12 @@
 
 .monsterLogoMenu 
 {
-   height: 64px;
+   height:  64px;
 }
 
 .closeMenuImg {
   width: 22px;
+  margin-left: 30px;
 }
 
 .headingCloseDiv {
@@ -38,7 +39,8 @@
 
 .subMenuList {
   display: flex;
-  list-style-type: circle;
+   list-style-type: none;
+    transition: max-height 300ms ease;
   
 
 }
@@ -51,14 +53,16 @@
   display: flex;
   font-size:10px;
    color: lightskyblue;
-   padding-left: 10px;
+
+   max-height: 56px;
+   overflow: hidden;
+   
+
 
 
 }
 
-
-
-.greaterThanIcon {
+ .greaterThanIcon {
   height: 15px;
 }
 

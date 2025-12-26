@@ -85,8 +85,10 @@ function getTrackTime(timeInSeconds)
 
 }
 
-function loadMetaData()
+async function getMetaData() 
 {
+    const promises = [];
+
     for(let j = 0; j < albums.length; ++j)
     {
         const numTracks = albums[j].tracks.length;
@@ -94,23 +96,32 @@ function loadMetaData()
         {
             const currTrack = albums[j].tracks[i];
             currTrack.audio.load();
-            currTrack.audio.addEventListener("loadedmetadata", function() 
-            {
-                currTrack.time = getTrackTime(currTrack.audio.duration);
-            
-            });
-        }
+
+            promises.push(new Promise((resolve) => 
+            {        
+                if (currTrack.audio.duration && !isNaN(currTrack.audio.duration)) 
+                {
+                    currTrack.time = getTrackTime(currTrack.audio.duration);
+                    resolve();
+                    return;
+                }
+          
+                currTrack.audio.addEventListener("loadedmetadata", function() 
+                {
+                    currTrack.time = getTrackTime(currTrack.audio.duration);
+                    resolve();
+                
+                }, {once:true});
+            }));
+        };   
     }
-    
-
+    await Promise.all(promises);
 }
-const load = new Promise((resolve, reject) => 
-    {
-        loadMetaData();
-        resolve("meta data loaded");
 
-    }); 
+const belongsTo = "Harald N";
+const messageIfFound = "Vennligst returner til eier";
 
+await getMetaData();
 
 let isAlbumListVisible = false;
 
@@ -145,47 +156,7 @@ function switchAlbums(newAlbum)
   
 
     }, {once:true});
-
-}
-
-
-function displayAlbumSubMenu()
-{
-    const albumSubMenuList = document.querySelector("#albumSubMenuList");
-    // while(albumSubMenuList.lastChild) albumSubMenuList.remove(albumSubMenuList.lastChild);
-
-    for(let i = 0; i < albums.length; ++i)
-    {
-        if(isAlbumListVisible)
-        {
-
-            const childNodes = Array.from(albumSubMenuList.children);
-            for(let i = 0; i < childNodes.length; ++i)
-            {
-                childNodes[i].remove();
-             
-                 
-            }
-            console.log("list removed");
-           isAlbumListVisible = false;
-           return;
-        }
-        const newItem = document.createElement("li");
-        newItem.textContent = albums[i].albumName;
-        newItem.classList.add("subMenuItem", "scaleInAnim");
-        albumSubMenuList.appendChild(newItem);
-
-        newItem.addEventListener("click", function() 
-        { 
-           
-            albumHasChanged = true;
-            switchAlbums(i);
-            currentAlbum = i;
-           
-            loadAlbumTracksWithAnim();
-
-        });
-    };
+    let text = belongsTo + messageIfFound;
 }
 
 
@@ -275,6 +246,7 @@ async function addTracksToList()
         newListItem.appendChild(pauseIcon);
         newListItem.appendChild(songTitle);
         newListItem.appendChild(songLength);
+        newListItem.classList.add("trackListItem");
                     
         setTimeout(()=> { tracks.appendChild(newListItem);  newListItem.classList.add("scaleInAnim");  listIconsArray[i] = {play : playIcon, pause : pauseIcon};   }, delay);
         delay += delayInc;
@@ -309,9 +281,53 @@ function loadAlbumTracksWithAnim()
 
 
 
-// hamburger meny som kommer inn fra siden
+// hamburger meny som kommer inn fra siden - meny seksjon
 
+function displayAlbumSubMenu()
+{
+    const albumSubMenuList = document.querySelector("#albumSubMenuList");
+    // while(albumSubMenuList.lastChild) albumSubMenuList.remove(albumSubMenuList.lastChild);
 
+    for(let i = 0; i < albums.length; ++i)
+    {
+        if(isAlbumListVisible)
+        {
+
+            const childNodes = Array.from(albumSubMenuList.children);
+            for(let i = 0; i < childNodes.length; ++i)
+            {
+
+                childNodes[i].classList.remove("scaleInAmin");
+                childNodes[i].classList.add("scaleOutAnim");
+
+               childNodes[i].addEventListener("animationend", function()
+                {
+                    childNodes[i].remove();
+                }, {once:true});
+                 
+            }
+            console.log("list removed");
+           isAlbumListVisible = false;
+           return;
+        }
+        const newItem = document.createElement("li");
+        newItem.textContent = albums[i].albumName;
+        newItem.classList.add("subMenuItem", "scaleInAnim");
+        albumSubMenuList.appendChild(newItem);
+     
+        newItem.addEventListener("click", function() 
+        { 
+           
+            albumHasChanged = true;
+            switchAlbums(i);
+            currentAlbum = i;
+       
+            loadAlbumTracksWithAnim();
+
+        });
+    };
+    isAlbumListVisible = true;
+}
 
 function hamburgerToggle()
 {
@@ -343,7 +359,7 @@ function hamburgerToggle()
     {
 
         displayAlbumSubMenu();
-        isAlbumListVisible = true;
+  
     });
  
 }
