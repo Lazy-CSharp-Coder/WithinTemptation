@@ -82,6 +82,7 @@ ul {
 }
 
 li {
+  display: inline;
   font-family: var(--primaryFontFamily);
   font-size:18px;
   /* display: flex; */
